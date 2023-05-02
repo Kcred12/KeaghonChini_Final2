@@ -45,6 +45,11 @@ class Player(py.sprite.Sprite):
             else:
                 self.rect.x += -player_velocity
 
+    def collision_check(self,player,enemies,healthbar):
+
+        if py.sprite.spritecollideany(player,enemies):
+            healthbar.take_damage()
+
     def draw(self,window):
         window.blit(self.image,(self.rect.x,self.rect.y)) # draws the player to the screen
 

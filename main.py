@@ -10,6 +10,7 @@ py.init()
 
 TOP_MARGIN_HEIGHT = 45
 
+
 def main():
     """This is the main method and is where the methods are called to set
     up the game. It also contains the game loop, where events are handled"""
@@ -18,13 +19,11 @@ def main():
     # This lets me pass the nums as parameters for bounding boxes instead of hard coding values
     (window, MAX_WIDTH, MAX_HEIGHT) = make_window()
 
-
-    top_margin = make_top_margin(window,MAX_WIDTH, TOP_MARGIN_HEIGHT)
-    py.draw.rect(window,(128,128,128),top_margin)
+    top_margin = make_top_margin(MAX_WIDTH, TOP_MARGIN_HEIGHT)
+    py.draw.rect(window, (128, 128, 128), top_margin)
 
     healthbar = Healthbar(window)
     healthbar.draw()
-
 
     player_1 = create_player()
 
@@ -32,8 +31,11 @@ def main():
     player_list.add(player_1)
     player_list.draw(window)
 
-    enemy = Enemies(window,MAX_WIDTH,MAX_HEIGHT,TOP_MARGIN_HEIGHT)
-    enemy.draw()
+    enemies = py.sprite.Group()
+    for x in range(5):
+        enemy = Enemies(window, MAX_WIDTH, MAX_HEIGHT, TOP_MARGIN_HEIGHT)
+        enemies.add(enemy)
+        enemy.draw()
 
     clock = py.time.Clock()
 
@@ -43,18 +45,17 @@ def main():
                 py.quit()
 
         player_1.move(MAX_WIDTH, MAX_HEIGHT, TOP_MARGIN_HEIGHT)
-        enemy.move()
-        print(enemy.enemy_rect.right)
+        enemies.update()
         window.fill((0, 0, 0))
 
         py.draw.rect(window, (128, 128, 128), top_margin)
+        player_1.collision_check(player_1, enemies, healthbar)
         healthbar.draw()
         player_1.draw(window)
-        enemy.draw()
+        enemies.draw(window)
 
         py.display.update()
         clock.tick(120)
-
 
 
 if __name__ == '__main__':
