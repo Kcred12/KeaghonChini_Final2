@@ -25,14 +25,14 @@ class Healthbar:
 
     def __init__(self, window):
         self.window = window
-        self.width = 980
+        self.width = 200
         self.height = 25
         self.color = (0, 255, 0)
-        self.healthbar_rect = py.Rect(0, 0, self.width, self.height)
-        self.healthbar_rect.topleft = (10, 10)
+        self.rect = py.Rect(0, 0, self.width, self.height)
+        self.rect.topleft = (10, 10)
 
     def take_damage(self):
-        self.healthbar_rect.width -= 10
+        self.rect.width -= 10
 
     def draw(self):
-        py.draw.rect(self.window, self.color, self.healthbar_rect)
+        py.draw.rect(self.window, self.color, self.rect)

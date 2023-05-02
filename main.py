@@ -5,6 +5,7 @@ import sys
 from create_gui import *
 from player import *
 from enemies import *
+import time
 
 py.init()
 
@@ -32,12 +33,15 @@ def main():
     player_list.draw(window)
 
     enemies = py.sprite.Group()
-    for x in range(5):
+    for x in range(10):
         enemy = Enemies(window, MAX_WIDTH, MAX_HEIGHT, TOP_MARGIN_HEIGHT)
         enemies.add(enemy)
         enemy.draw()
 
+    py.display.update()
     clock = py.time.Clock()
+
+    time.sleep(2)
 
     while True:
         for event in py.event.get():
@@ -50,6 +54,8 @@ def main():
 
         py.draw.rect(window, (128, 128, 128), top_margin)
         player_1.collision_check(player_1, enemies, healthbar)
+        if healthbar.rect.width == 0:
+            py.quit()
         healthbar.draw()
         player_1.draw(window)
         enemies.draw(window)
