@@ -53,6 +53,7 @@ def main():
         for event in py.event.get():
             if event.type == py.QUIT:
                 py.quit()
+                sys.exit()
 
         player_1.move(MAX_WIDTH, MAX_HEIGHT, TOP_MARGIN_HEIGHT)
         enemies.update()
@@ -62,6 +63,7 @@ def main():
         player_1.collision_check(player_1, enemies, healthbar)
         if healthbar.rect.width == 0:
             py.quit()
+            sys.exit()
         healthbar.draw()
         player_1.draw(window)
         enemies.draw(window)
