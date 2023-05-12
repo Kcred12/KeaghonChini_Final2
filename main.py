@@ -5,12 +5,12 @@ import sys
 from create_gui import *
 from player import *
 from enemies import *
+from main_menu import *
 import time
 
 py.init()
 
 TOP_MARGIN_HEIGHT = 45
-
 
 def main():
     """This is the main method and is where the methods are called to set
@@ -19,6 +19,11 @@ def main():
     # This makes the actual window appear, as well as returning the width and height of the window
     # This lets me pass the nums as parameters for bounding boxes instead of hard coding values
     (window, MAX_WIDTH, MAX_HEIGHT) = make_window()
+
+    # This shows the main menu, and will fill the screen and effectively
+    # clear the screen
+    show_main_menu(window)
+    window.fill((0, 0, 0))
 
     top_margin = make_top_margin(MAX_WIDTH, TOP_MARGIN_HEIGHT)
     py.draw.rect(window, (128, 128, 128), top_margin)
@@ -38,8 +43,9 @@ def main():
         enemies.add(enemy)
         enemy.draw()
 
-    py.display.update()
     clock = py.time.Clock()
+
+    py.display.update()
 
     time.sleep(2)
 

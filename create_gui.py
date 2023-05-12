@@ -32,7 +32,11 @@ class Healthbar:
         self.rect.topleft = (10, 10)
 
     def take_damage(self):
-        self.rect.width -= 10
+        if self.rect.width <= 100:
+            self.color = (255,255,0)
+        if self.rect.width <= 50:
+            self.color = (255,0,0)
+        self.rect.width -= 2
 
     def draw(self):
         py.draw.rect(self.window, self.color, self.rect)
