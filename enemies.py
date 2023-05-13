@@ -32,6 +32,7 @@ class Enemies(py.sprite.Sprite):
         py.draw.rect(self.window, self.color, self.rect)
 
     def update(self):
+        """Moves enemies according to their chosen velocities"""
 
         self.rect.move_ip(self.xvelocity,self.yvelocity)
 

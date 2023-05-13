@@ -25,12 +25,17 @@ def main():
     show_main_menu(window)
     window.fill((0, 0, 0))
 
+    # This creates the top gray bar
     top_margin = make_top_margin(MAX_WIDTH, TOP_MARGIN_HEIGHT)
     py.draw.rect(window, (128, 128, 128), top_margin)
 
+    # Creates the healthbar
     healthbar = Healthbar(window)
     healthbar.draw()
 
+
+    # Creates the player and enemies and
+    # adds them to their respective groups
     player_1 = create_player()
 
     player_list = py.sprite.Group()
@@ -47,6 +52,7 @@ def main():
 
     py.display.update()
 
+    # Allows time before the game starts so the player is not thrown in
     time.sleep(2)
 
     while True:
@@ -55,12 +61,17 @@ def main():
                 py.quit()
                 sys.exit()
 
+        # Checks for arrow keys and moves player accordingly
         player_1.move(MAX_WIDTH, MAX_HEIGHT, TOP_MARGIN_HEIGHT)
+
+        # Moves enemies in random directions
         enemies.update()
         window.fill((0, 0, 0))
 
         py.draw.rect(window, (128, 128, 128), top_margin)
         player_1.collision_check(player_1, enemies, healthbar)
+
+        # Sets a kill threshold and kills the game as well
         if healthbar.rect.width == 0:
             py.quit()
             sys.exit()
@@ -68,6 +79,8 @@ def main():
         player_1.draw(window)
         enemies.draw(window)
 
+
+        # Updates all the changes made to the screen to make them visible
         py.display.update()
         clock.tick(120)
 
